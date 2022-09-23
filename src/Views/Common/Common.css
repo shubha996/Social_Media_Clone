@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    margin: 0%;
+    padding: 0%;
+}
+
+@font-face {
+    font-family: outterzone;
+    src: url('../../Assets/outer_zone/Outer_zone.ttf');
+}
+
+.outter-zone{
+    font-family: outterzone;
+}
