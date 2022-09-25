@@ -1,12 +1,19 @@
 import React, { useContext } from 'react'
 import { TextField, Button } from '@mui/material'
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import NewContext from '../../Context'
 
 const Login = () => {
-  const { visibilityToggle, setVisibilityToggle, error } = useContext(NewContext);
+  const { visibilityToggle, setVisibilityToggle, loginStatus, setLoginMobile, setLoginPassword, loginHandler } = useContext(NewContext);
+
+  var path = '/dashboard';
+  var navigate = useNavigate();
+  if(loginStatus === "Success"){
+    navigate(path);
+  }
   return (
     <div className='flex bg-slate-600'>
     {/* LOGO CONTAINER */}
@@ -24,21 +31,22 @@ const Login = () => {
             <div className='mt-5'>
               <TextField id="outlined-basic" label="Enter Mobile Number" variant="outlined" fullWidth
                 inputProps={{maxLength: 10}}
+                onChange={(e) => setLoginMobile(e.target.value)}
               />
             </div>
             <div className='mt-5'>
               <TextField id="outlined-password-input" type={visibilityToggle ? "password" : "text"} autoComplete="current-password"
-                label="Enter Password" fullWidth/>
+                label="Enter Password" fullWidth onChange={(e) => setLoginPassword(e.target.value)}/>
                 <div className='relative pl-4 w-fit bottom-10 left-72'>
                   {visibilityToggle ? <VisibilityIcon onClick={() => setVisibilityToggle(0)}/> : 
                     <VisibilityOffIcon onClick={() => setVisibilityToggle(1)}/>}
                 </div>
             </div>
-            <div className='ml-3 text-red-500'>
+            {/* <div className='ml-3 text-red-500'>
               <p className=''>{error}</p>
-            </div>
+            </div> */}
             <div className='mt-5'>
-              <Button variant='contained' fullWidth>Login</Button>
+              <Button variant='contained' fullWidth onClick={loginHandler}>Login</Button>
             </div>
             <div className='mt-5'>
               <Button variant='text' fullWidth>Forget Password?</Button>
